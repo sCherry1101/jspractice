@@ -88,3 +88,40 @@ document.body.appendChild(renderer.domElement);
 //         });
 
 // animate();
+
+//+++ pyramid 
+
+const geometry = new THREE.ConeGeometry(1, 1.5, 4); 
+const material = new THREE.MeshStandardMaterial({ 
+    color: 0x800080, 
+    roughness: 0.4,
+    metalness: 0.7 
+     });
+const pyramid = new THREE.Mesh(geometry, material);
+scene.add(pyramid);
+
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.5); 
+scene.add(ambientLight);
+
+const pointLight = new THREE.PointLight(0xffffff, 50); 
+pointLight.position.set(5, 5, 5);
+scene.add(pointLight);
+
+camera.position.z = 3;
+
+function animate() {
+    requestAnimationFrame(animate);
+
+    pyramid.rotation.x += 0.01;
+    pyramid.rotation.y += 0.01;
+
+    renderer.render(scene, camera);
+    }
+
+window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+animate();
